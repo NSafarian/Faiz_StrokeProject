@@ -87,7 +87,7 @@ AST.VLMCs.general.markers <- c( 'Aldh1l1', 'Aqp4', 'Apoe', 'S100b', 'Gfap','Slc1
 Idents(cluster.average.exp) <- "new_clusters"
 
 DoHeatmap(object = cluster.average.exp, features = AST.VLMCs.general.markers, group.by = "ident", group.bar = TRUE, group.colors= my.cols, label=T, size=4, angle=35) +
-  scale_fill_viridis(option="inferno", direction = -1) +
+  scale_fill_viridis(option="inferno", direction = 1) +
   theme(text = element_text(size = 5), 
       axis.title.x= element_text(face="bold", size=10),
       axis.title.y= element_text(face="bold", size=10),
@@ -106,7 +106,7 @@ DoHeatmap(object = cluster.average.exp, features = AST.VLMCs.general.markers, gr
 DoHeatmap(object = seu.combined, features = top10.per.cluster.by.log2FC$gene, 
           group.by = "ident", group.bar = TRUE, angle=30,
           group.colors= my.cols) +
-  scale_fill_viridis(option="inferno", direction=-1)+
+  scale_fill_viridis(option="inferno", direction=1)+
   theme(text = element_text(size = 3), 
         axis.title.x= element_text(face="bold", size=4),
         axis.title.y= element_text(face="bold", size=4),
@@ -160,7 +160,7 @@ seu.cluster6and7 <- subset(seu.combined, subset=new_clusters==c("6","7")) #note 
 
 #6) Visualize
 DoHeatmap(object = seu.cluster6and7, features = top.100.markers$gene, label = TRUE, group.colors= c('#f8ca9d','#253656')) +
-  scale_fill_viridis(option="inferno", direction=-1)+
+  scale_fill_viridis(option="inferno", direction=1)+
   theme(text = element_text(size = 3), 
         axis.title.x= element_text(face="bold", size=10),
         axis.title.y= element_text(face="bold", size=10),
@@ -174,7 +174,7 @@ DoHeatmap(object = seu.cluster6and7, features = top.100.markers$gene, label = TR
 ```{r setup, include=FALSE}
 
 #Visualize selected P.vs.non_P markers expression on Visium-day10 data
-SpatialFeaturePlot(FV.d10, features = c('Apoe','Itm2b','Ftl1','Sparc','Fabp5', 'Clu'), ncol=3)  
+SpatialFeaturePlot(FV.d10, features = c('Apoe','Cd81','Fabp5', 'Aldoc', 'Clu'), ncol=3)  
 
 ```
 
