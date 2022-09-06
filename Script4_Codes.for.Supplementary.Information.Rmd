@@ -341,7 +341,7 @@ P8 # you may use other cell-type markers defined above
 
 ```
 
-## **Visualize selected DEG between Penumbra and non-penumbra astrocytes clusters on Visium data** 
+## **Visualize the expression levels of selected cluster-7 markers in 10X single-cell driven clusters and on the visium dataset** 
 ### *Step 1) Import and analyze the day10_Visium_data*
 ```{r, message= FALSE, warning = FALSE}
 
@@ -375,12 +375,12 @@ P9 + P10
 ### *Step 2) Define genes to be mapped*
 ```{r}
 
-# Group 1) Genes upregulated in cluster 7 astrocytes with
+# Group 1) Genes upregulated in cluster-7 astrocytes with
 # expression patterns localized around the injury site on Visium data 
 Group1.genes <- c('Apoe', 'Cd81', 'Lamp1', 'Ftl1' ,'Tpt1', 
                   'Ctsl', 'Fau', 'Dbi', 'Eef1a1', 'Fabp5')
 
-# Group 2) Genes upregulated in cluster 7 astrocytes; though,
+# Group 2) Genes upregulated in cluster-7 astrocytes; though,
 # with inverse expression patterns on Visium data 
 # (i.e., more localized outside the injury site) 
 Group2.genes <- c('Mt1', 'Aldoc', 'Cox8a', 'Clu',
@@ -389,11 +389,10 @@ Group2.genes <- c('Mt1', 'Aldoc', 'Cox8a', 'Clu',
 
 ```
 
-### *Step3) Visualize selected genes on both 10X single-cell and visium datasets*
+### *Step3) Plot the expression levels*
 ```{r, warning = FALSE}
 
-
-# 1) Visualize the expression levels of select markers in all clusters
+# 1) Visualize the expression levels of select markers among all single-cell driven clusters
 FeaturePlot(seu.combined,
             reduction = "umap",
             features = c("Apoe", "Cd81", "Fabp5", "Aldoc", "Clu"),
@@ -412,11 +411,11 @@ FeaturePlot(seu.combined,
         legend.title= element_text(face="bold", size=8))
 
 
-#2) Visualize the expression levels of select markers in the two clusters of interest
+# 2) Compare the expression levels of select markers between the two clusters of interest
 ## 2.1) Subset Seurat object 
 seu.cluster6and7 <- subset(seu.combined, subset=new_clusters %in%c("6","7"))
 
-## 2.2) Heatmap expression levels in the single-cell data
+## 2.2) Heatmap expression levels of the single-cell data
 P11 <- DoHeatmap(object = seu.cluster6and7, features = Group1.genes, 
                 label = TRUE, group.colors= c('#f8ca9d','#253656')) +
   scale_fill_viridis(option="inferno", direction=-1) +
