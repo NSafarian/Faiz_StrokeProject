@@ -392,10 +392,31 @@ Group2.genes <- c('Mt1', 'Aldoc', 'Cox8a', 'Clu',
 ### *Step3) Visualize selected genes on both 10X single-cell and visium datasets*
 ```{r, warning = FALSE}
 
-#1) Subset Seurat object for the two clusters of interest
+
+# 1) Visualize the expression levels of select markers in all clusters
+FeaturePlot(seu.combined,
+            reduction = "umap",
+            features = c("Apoe", "Cd81", "Fabp5", "Aldoc", "Clu"),
+            order = TRUE,
+            pt.size= 0.5, 
+            min.cutoff = 'q10',
+            cols = c("#E7ECF0","#F5C245","#EB6359","#696267","#529085"), # you may add other DEG to this list
+            label = TRUE,
+            label.size=5,
+            repel=T, ncol = 3) &
+  theme(axis.title.x= element_text(face="bold", size=10),
+        axis.title.y= element_text(face="bold", size=10),
+        axis.text= element_text(face="bold", size=10),
+        axis.line = element_line(size=1),
+        legend.text= element_text(face="bold", size=8),
+        legend.title= element_text(face="bold", size=8))
+
+
+#2) Visualize the expression levels of select markers in the two clusters of interest
+## 2.1) Subset Seurat object 
 seu.cluster6and7 <- subset(seu.combined, subset=new_clusters %in%c("6","7"))
 
-#2) Heatmap expression levels in the single-cell data
+## 2.2) Heatmap expression levels in the single-cell data
 P11 <- DoHeatmap(object = seu.cluster6and7, features = Group1.genes, 
                 label = TRUE, group.colors= c('#f8ca9d','#253656')) +
   scale_fill_viridis(option="inferno", direction=-1) +
@@ -417,7 +438,7 @@ P12 <- DoHeatmap(object = seu.cluster6and7, features = Group2.genes,
         legend.title= element_text(face="bold", size=8))
 
 
-#3) Spatial mapping on Visium data (day10)
+## 2.3) Spatial mapping on Visium data (day10)
 P13 <- SpatialFeaturePlot(FV.d10, features = Group1.genes, ncol = 5)
 P14 <- SpatialFeaturePlot(FV.d10, features = Group2.genes, ncol = 4)
 
