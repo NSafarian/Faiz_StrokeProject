@@ -41,8 +41,8 @@ library(tinytex)
 ```{r, message = FALSE}
 
 # Define the path to the main Directory
-Uninj_data_dir <- "/Users/nickie/Desktop/Faiz_10Xdata/Uninjured"
-Stroke_data_dir <- "/Users/nickie/Desktop/Faiz_10Xdata/Stroke"
+Uninj_data_dir <- "/Path/to/Data/Directory/"
+Stroke_data_dir <- "Path/to/Data/Directory/"
 
 # List the files whithin the Stroke and Uninjured subdirectory/ folders 
 ## Should show barcodes.tsv.gz, features.tsv.gz, and matrix.mtx.gz
@@ -231,7 +231,7 @@ P5 <- ElbowPlot(object = seu.combined, reduction = "pca")+
 
 P6 <- DimHeatmap(seu.combined, dims = 1:12, cells = 50, 
                  balanced = TRUE, ncol = 4,fast = FALSE) &
-  scale_fill_viridis(option="inferno", direction=-1)&
+  scale_fill_viridis(option="inferno", direction=1)&
   theme(text = element_text(size = 3), 
         axis.title.x= element_text(face="bold", size=3),
         axis.title.y= element_text(face="bold", size=3),
@@ -271,7 +271,7 @@ UNvsS <- FindMarkers(seu.combined, group.by = 'orig.ident',
 # Visualize 
 P7 <- DotPlot(seu.combined, features = UNvsS$gene, assay="RNA", 
               cols= c("#a1a2a6", "#f2cf59"))+
-  scale_fill_viridis(option="inferno", direction=-1, guide = "colourbar")+
+  scale_fill_viridis(option="inferno", direction=1, guide = "colourbar")+
   labs(title = "DEG between groups",x = "Genes", y = "Groups")+
   theme(axis.title.x= element_text(face="bold", size=12),
         axis.title.y= element_text(face="bold", size=12),
